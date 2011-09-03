@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; smk_python_sdk v0.2.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="smk_python_sdk v0.2.1 documentation" href="index.html" />
+    <link rel="prev" title="Quickstart" href="user/quickstart.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="user/quickstart.html" title="Quickstart"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api">
+<span id="id1"></span><h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-smarkets"></span><p>This part of the documentation is a reference for the various classes
+necessary to develop with the client library.</p>
+<div class="section" id="session">
+<h2>Session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smarkets.Session">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">Session</tt><big>(</big><em>settings</em>, <em>session=None</em>, <em>inseq=1</em>, <em>outseq=1</em><big>)</big><a class="headerlink" href="#smarkets.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manages TCP communication via Smarkets streaming API</p>
+<dl class="method">
+<dt id="smarkets.Session.connect">
+<tt class="descname">connect</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Session.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to the API and logs in if not already connected</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smarkets.Session.connected">
+<tt class="descname">connected</tt><a class="headerlink" href="#smarkets.Session.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the socket is currently connected</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Session.disconnect">
+<tt class="descname">disconnect</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Session.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects from the API</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Session.flush">
+<tt class="descname">flush</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Session.flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush payloads to the socket</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Session.logout">
+<tt class="descname">logout</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Session.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects from the API</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Session.next_frame">
+<tt class="descname">next_frame</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Session.next_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next frame and increment inseq</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Session.send">
+<tt class="descname">send</tt><big>(</big><em>flush=False</em><big>)</big><a class="headerlink" href="#smarkets.Session.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialise, sequence, add header, and send payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="sessionsettings">
+<h3>SessionSettings<a class="headerlink" href="#sessionsettings" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="smarkets.SessionSettings">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">SessionSettings</tt><big>(</big><em>username</em>, <em>password</em><big>)</big><a class="headerlink" href="#smarkets.SessionSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulate settings necessary to create a new session</p>
+<dl class="method">
+<dt id="smarkets.SessionSettings.validate">
+<tt class="descname">validate</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.SessionSettings.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do basic validation on the settings</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="client">
+<h2>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="smarkets.Smarkets">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">Smarkets</tt><big>(</big><em>session</em>, <em>auto_flush=True</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smarkets API implementation</p>
+<p>Provides a simple interface wrapping the protobufs.</p>
+<dl class="method">
+<dt id="smarkets.Smarkets.add_global_handler">
+<tt class="descname">add_global_handler</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.add_global_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a global callback handler, called for every message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.add_handler">
+<tt class="descname">add_handler</tt><big>(</big><em>name</em>, <em>callback</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.add_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a callback handler</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="smarkets.Smarkets.copy_payload">
+<em class="property">static </em><tt class="descname">copy_payload</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.copy_payload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy a payload and return the copy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.del_global_handler">
+<tt class="descname">del_global_handler</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.del_global_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a global callback handler</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.del_handler">
+<tt class="descname">del_handler</tt><big>(</big><em>name</em>, <em>callback</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.del_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a callback handler</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.fetch_http_found">
+<tt class="descname">fetch_http_found</tt><big>(</big><em>payload</em>, <em>incoming_payload=None</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.fetch_http_found" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch the URL specified by a http found payload</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.flush">
+<tt class="descname">flush</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Smarkets.flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush the send buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.login">
+<tt class="descname">login</tt><big>(</big><em>receive=True</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect and ensure the session is active</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.logout">
+<tt class="descname">logout</tt><big>(</big><em>receive=True</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect and send logout message, optionally waiting for
+confirmation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.order">
+<tt class="descname">order</tt><big>(</big><em>order</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new order</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.order_cancel">
+<tt class="descname">order_cancel</tt><big>(</big><em>order</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.order_cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel an existing order</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.ping">
+<tt class="descname">ping</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Smarkets.ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ping the service</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.read">
+<tt class="descname">read</tt><big>(</big><em>num=1</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive the next <cite>num</cite> payloads and block</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.request_events">
+<tt class="descname">request_events</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.request_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a structured events request</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="smarkets.Smarkets.str_to_uuid128">
+<em class="property">static </em><tt class="descname">str_to_uuid128</tt><big>(</big><em>uuid_str</em>, <em>uuid128=None</em>, <em>strip_tag=True</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.str_to_uuid128" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a uuid128</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.subscribe">
+<tt class="descname">subscribe</tt><big>(</big><em>market</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe to a market</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Smarkets.unsubscribe">
+<tt class="descname">unsubscribe</tt><big>(</big><em>market</em><big>)</big><a class="headerlink" href="#smarkets.Smarkets.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsubscribe from a market</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="orders">
+<h3>Orders<a class="headerlink" href="#orders" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="smarkets.Order">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">Order</tt><a class="headerlink" href="#smarkets.Order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple order state with useful exceptions</p>
+<dl class="method">
+<dt id="smarkets.Order.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>payload</em>, <em>clear=True</em><big>)</big><a class="headerlink" href="#smarkets.Order.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy this order instruction to a message <cite>payload</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Order.validate_new">
+<tt class="descname">validate_new</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Order.validate_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate this order&#8217;s properties as a new instruction</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="events">
+<h3>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="smarkets.EventsRequest">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">EventsRequest</tt><a class="headerlink" href="#smarkets.EventsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for events requests</p>
+<dl class="method">
+<dt id="smarkets.EventsRequest.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.EventsRequest.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.EventsRequest.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.EventsRequest.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.Politics">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">Politics</tt><a class="headerlink" href="#smarkets.Politics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for politics events</p>
+<dl class="method">
+<dt id="smarkets.Politics.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.Politics.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.Politics.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.Politics.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.CurrentAffairs">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">CurrentAffairs</tt><a class="headerlink" href="#smarkets.CurrentAffairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for current affairs events</p>
+<dl class="method">
+<dt id="smarkets.CurrentAffairs.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.CurrentAffairs.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.CurrentAffairs.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.CurrentAffairs.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.TvAndEntertainment">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">TvAndEntertainment</tt><a class="headerlink" href="#smarkets.TvAndEntertainment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for TV/entertainment events</p>
+<dl class="method">
+<dt id="smarkets.TvAndEntertainment.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.TvAndEntertainment.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.TvAndEntertainment.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.TvAndEntertainment.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.SportByDate">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">SportByDate</tt><big>(</big><em>date</em><big>)</big><a class="headerlink" href="#smarkets.SportByDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for sport by date</p>
+<dl class="method">
+<dt id="smarkets.SportByDate.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.SportByDate.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.SportByDate.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.SportByDate.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.FootballByDate">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">FootballByDate</tt><big>(</big><em>date</em><big>)</big><a class="headerlink" href="#smarkets.FootballByDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for football by date</p>
+<dl class="method">
+<dt id="smarkets.FootballByDate.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.FootballByDate.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.FootballByDate.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.FootballByDate.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.HorseRacingByDate">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">HorseRacingByDate</tt><big>(</big><em>date</em><big>)</big><a class="headerlink" href="#smarkets.HorseRacingByDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for horse racing by date</p>
+<dl class="method">
+<dt id="smarkets.HorseRacingByDate.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.HorseRacingByDate.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.HorseRacingByDate.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.HorseRacingByDate.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.TennisByDate">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">TennisByDate</tt><big>(</big><em>date</em><big>)</big><a class="headerlink" href="#smarkets.TennisByDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for football by date</p>
+<dl class="method">
+<dt id="smarkets.TennisByDate.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.TennisByDate.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.TennisByDate.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.TennisByDate.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="smarkets.SportOther">
+<em class="property">class </em><tt class="descclassname">smarkets.</tt><tt class="descname">SportOther</tt><a class="headerlink" href="#smarkets.SportOther" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request for other sport</p>
+<dl class="method">
+<dt id="smarkets.SportOther.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.SportOther.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the payload to a new one</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.SportOther.copy_to">
+<tt class="descname">copy_to</tt><big>(</big><em>dest_payload</em><big>)</big><a class="headerlink" href="#smarkets.SportOther.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the event request to the destination payload</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="internals">
+<h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
+<p>These are largely internal classes, but the documentation is included
+for debugging or extending the functionality provided.</p>
+<div class="section" id="module-smarkets.exceptions">
+<span id="exceptions"></span><h3>Exceptions<a class="headerlink" href="#module-smarkets.exceptions" title="Permalink to this headline">¶</a></h3>
+<dl class="exception">
+<dt id="smarkets.exceptions.Error">
+<em class="property">exception </em><tt class="descclassname">smarkets.exceptions.</tt><tt class="descname">Error</tt><a class="headerlink" href="#smarkets.exceptions.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>General Smarkets API error</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="smarkets.exceptions.ConnectionError">
+<em class="property">exception </em><tt class="descclassname">smarkets.exceptions.</tt><tt class="descname">ConnectionError</tt><a class="headerlink" href="#smarkets.exceptions.ConnectionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>TCP connection-related error</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="smarkets.exceptions.DecodeError">
+<em class="property">exception </em><tt class="descclassname">smarkets.exceptions.</tt><tt class="descname">DecodeError</tt><a class="headerlink" href="#smarkets.exceptions.DecodeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Header decoding error</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="smarkets.exceptions.ParseError">
+<em class="property">exception </em><tt class="descclassname">smarkets.exceptions.</tt><tt class="descname">ParseError</tt><a class="headerlink" href="#smarkets.exceptions.ParseError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error parsing a message or frame</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="smarkets.exceptions.SocketDisconnected">
+<em class="property">exception </em><tt class="descclassname">smarkets.exceptions.</tt><tt class="descname">SocketDisconnected</tt><a class="headerlink" href="#smarkets.exceptions.SocketDisconnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket was disconnected while reading</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="smarkets.exceptions.InvalidCallbackError">
+<em class="property">exception </em><tt class="descclassname">smarkets.exceptions.</tt><tt class="descname">InvalidCallbackError</tt><a class="headerlink" href="#smarkets.exceptions.InvalidCallbackError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invalid callback was specified</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-smarkets.sessions">
+<span id="classes"></span><h3>Classes<a class="headerlink" href="#module-smarkets.sessions" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="smarkets.sessions.SessionSocket">
+<em class="property">class </em><tt class="descclassname">smarkets.sessions.</tt><tt class="descname">SessionSocket</tt><big>(</big><em>settings</em><big>)</big><a class="headerlink" href="#smarkets.sessions.SessionSocket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps a socket with basic framing/deframing</p>
+<dl class="method">
+<dt id="smarkets.sessions.SessionSocket.connect">
+<tt class="descname">connect</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.sessions.SessionSocket.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TCP socket connection.</p>
+<p>Returns True if the socket needed connecting, False if not</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="smarkets.sessions.SessionSocket.connected">
+<tt class="descname">connected</tt><a class="headerlink" href="#smarkets.sessions.SessionSocket.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the socket is currently connected</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.sessions.SessionSocket.disconnect">
+<tt class="descname">disconnect</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.sessions.SessionSocket.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the TCP socket.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.sessions.SessionSocket.recv">
+<tt class="descname">recv</tt><big>(</big><big>)</big><a class="headerlink" href="#smarkets.sessions.SessionSocket.recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a frame with header</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="smarkets.sessions.SessionSocket.send">
+<tt class="descname">send</tt><big>(</big><em>msg_bytes</em><big>)</big><a class="headerlink" href="#smarkets.sessions.SessionSocket.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a payload</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#session">Session</a><ul>
+<li><a class="reference internal" href="#sessionsettings">SessionSettings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#client">Client</a><ul>
+<li><a class="reference internal" href="#orders">Orders</a></li>
+<li><a class="reference internal" href="#events">Events</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#internals">Internals</a><ul>
+<li><a class="reference internal" href="#module-smarkets.exceptions">Exceptions</a></li>
+<li><a class="reference internal" href="#module-smarkets.sessions">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="user/quickstart.html"
+                        title="previous chapter">Quickstart</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="user/quickstart.html" title="Quickstart"
+             >previous</a> |</li>
+        <li><a href="index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Smarkets Limited.
+    </div>
+  </body>
+</html>

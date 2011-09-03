@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Quickstart &mdash; smk_python_sdk v0.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="smk_python_sdk v0.2.1 documentation" href="../index.html" />
+    <link rel="next" title="API" href="../api.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="quickstart">
+<span id="id1"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-smarkets.clients"></span><p>This quickstart guide assumes you have already installed the
+client. If you haven&#8217;t, read <a class="reference internal" href="install.html#install"><em>Installation</em></a> first.</p>
+<div class="section" id="setting-up-logging">
+<h2>Setting up logging<a class="headerlink" href="#setting-up-logging" title="Permalink to this headline">¶</a></h2>
+<p>When developing, it&#8217;s often useful to turn on debug logging console output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="starting-a-session">
+<h2>Starting a session<a class="headerlink" href="#starting-a-session" title="Permalink to this headline">¶</a></h2>
+<p>In order to do anything meaningful with the API, you must first start
+a new session. We import the base module and create our
+<tt class="xref py py-class docutils literal"><span class="pre">SessionSettings</span></tt> object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">smarkets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">username</span> <span class="o">=</span> <span class="s">&#39;username&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;password&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span> <span class="o">=</span> <span class="n">smarkets</span><span class="o">.</span><span class="n">SessionSettings</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s">&#39;api.smarkets.com&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">3701</span>
+</pre></div>
+</div>
+<p>Then, we create the <tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt> object which we will use to keep
+track of sequence numbers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">smarkets</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> class is the higher-level wrapper which
+allows us to send and handle messages:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">smarkets</span><span class="o">.</span><span class="n">Smarkets</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, let&#8217;s login!</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We can also test our connectivity:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>  <span class="c"># this will read a &#39;pong&#39; response</span>
+</pre></div>
+</div>
+<p>And logout:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="resuming-a-session">
+<h2>Resuming a session<a class="headerlink" href="#resuming-a-session" title="Permalink to this headline">¶</a></h2>
+<p>One of the key aspects of our streaming API is the ability to resume a
+session in the event of a network failure or software bug which closes
+a socket connection prematurely.</p>
+<p>We can re-use our <tt class="xref py py-class docutils literal"><span class="pre">SessionSettings</span></tt> object from the above
+section. However, when creating the <tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt> object, we
+specify three additional parameters: <strong>session_id</strong>, <strong>inseq</strong> and
+<strong>outseq</strong></p>
+<div class="highlight-python"><pre>&gt;&gt; session = smarkets.Session(settings, session_id='foo', inseq=3, outseq=3)</pre>
+</div>
+<p>The rest works normally:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">smarkets</span><span class="o">.</span><span class="n">Smarkets</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>However, because our login message contains a session id which we
+intend to resume (and the sequence numbers we last saw and sent), the
+client will implicitly request a <strong>replay</strong> to collect the missing
+messages.</p>
+</div>
+<div class="section" id="placing-a-bet">
+<h2>Placing a bet<a class="headerlink" href="#placing-a-bet" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="xref py py-class docutils literal"><span class="pre">Order</span></tt> class provides the mechanism to send a message to
+create a new order:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">order</span> <span class="o">=</span> <span class="n">smarkets</span><span class="o">.</span><span class="n">Order</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">order</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="mi">400000</span>  <span class="c"># 40.0000 GBP payout</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">order</span><span class="o">.</span><span class="n">price</span> <span class="o">=</span> <span class="mi">2500</span>  <span class="c"># 25.00%</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">order</span><span class="o">.</span><span class="n">side</span> <span class="o">=</span> <span class="n">smarkets</span><span class="o">.</span><span class="n">Order</span><span class="o">.</span><span class="n">BUY</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">order</span><span class="o">.</span><span class="n">market</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">str_to_uuid128</span><span class="p">(</span><span class="s">&#39;fc024&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">order</span><span class="o">.</span><span class="n">contract</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">str_to_uuid128</span><span class="p">(</span><span class="s">&#39;fcccc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above order is a <strong>buy</strong> (or <strong>back</strong>) at 25.00% (or 4.0 in
+decimal format) for a £40.00 return. The buyer&#8217;s liability if the
+execution is at 25.00% will be £10.00.</p>
+<p>Now, we send the create message:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="registering-callback-functions">
+<h2>Registering callback functions<a class="headerlink" href="#registering-callback-functions" title="Permalink to this headline">¶</a></h2>
+<p>We can register some relatively simple callback functions for various
+messages. This example uses the text_format module from the protocol
+buffers package to simply print the message to stdout:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">google.protobuf</span> <span class="kn">import</span> <span class="n">text_format</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">login_response_callback</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span> <span class="s">&quot;Received a eto.login_response: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">text_format</span><span class="o">.</span><span class="n">MessageToString</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">global_callback</span><span class="p">(</span><span class="n">message_name</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">print</span> <span class="s">&quot;[global] Received a </span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">message_name</span><span class="p">,</span> <span class="n">text_format</span><span class="o">.</span><span class="n">MessageToString</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>First, we register the callback for the eto.login_response message:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="s">&#39;eto.login_response&#39;</span><span class="p">,</span> <span class="n">login_response_callback</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also register a <strong>global</strong> handler which will be called for
+every message received:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">add_global_handler</span><span class="p">(</span><span class="n">global_callback</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickstart</a><ul>
+<li><a class="reference internal" href="#setting-up-logging">Setting up logging</a></li>
+<li><a class="reference internal" href="#starting-a-session">Starting a session</a></li>
+<li><a class="reference internal" href="#resuming-a-session">Resuming a session</a></li>
+<li><a class="reference internal" href="#placing-a-bet">Placing a bet</a></li>
+<li><a class="reference internal" href="#registering-callback-functions">Registering callback functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="next chapter">API</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="../index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Smarkets Limited.
+    </div>
+  </body>
+</html>

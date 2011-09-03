@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; smk_python_sdk v0.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="smk_python_sdk v0.2.1 documentation" href="../index.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="Smarkets Python API Client" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Smarkets Python API Client"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="philosophy">
+<h2>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h2>
+<p>The main driving force behind the development of the Smarkets
+streaming API is efficiency. Many other applications in our industry
+rely on &#8220;polling&#8221; a service in order to provide a real-time view of
+changing data. While the streaming API can be used in a &#8220;synchronous&#8221;
+manner by making a request and waiting for a response, it is often far
+more efficient to design an application asynchronously. Asynchronous
+messaging allows for more flexible patterns and techniques like
+pipelining.</p>
+<p>The streaming API also uses framed <a class="reference external" href="http://code.google.com/p/protobuf/">protocol buffers</a> to define the
+wire format, so parsing messages is relatively fast and simple. We
+will endeavour to maintain backwards compatibility as we release newer
+revisions of the API. Protocol buffers definitions provide a <a class="reference external" href="http://code.google.com/apis/protocolbuffers/docs/proto.html#updating">decent
+facility for doing so</a>.</p>
+</div>
+<div class="section" id="mit-license">
+<h2>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h2>
+<p>In selecting a software license, we aimed to choose one which allows
+third-party application developers flexibility in using the code we
+provide.</p>
+<p>The Smarkets Python API Client is released under the <a class="reference external" href="http://www.opensource.org/licenses/mit">MIT License</a>.</p>
+</div>
+<div class="section" id="smarkets-python-api-client-license">
+<h2>Smarkets Python API Client License<a class="headerlink" href="#smarkets-python-api-client-license" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<p>Copyright (c) 2011 Smarkets Limited</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &#8220;Software&#8221;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &#8220;AS IS&#8221;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</blockquote>
+</div>
+<div class="section" id="python-interpreters">
+<span id="interpreters"></span><h2>Python Interpreters<a class="headerlink" href="#python-interpreters" title="Permalink to this headline">¶</a></h2>
+<p>As of this release, we support:</p>
+<ul class="simple">
+<li>cPython 2.6</li>
+<li>cPython 2.6.6</li>
+<li>cPython 2.7</li>
+<li>cPython 2.7.1</li>
+<li>cPython 2.7.2</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#philosophy">Philosophy</a></li>
+<li><a class="reference internal" href="#mit-license">MIT License</a></li>
+<li><a class="reference internal" href="#smarkets-python-api-client-license">Smarkets Python API Client License</a></li>
+<li><a class="reference internal" href="#python-interpreters">Python Interpreters</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Smarkets Python API Client</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">Installation</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Smarkets Python API Client"
+             >previous</a> |</li>
+        <li><a href="../index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Smarkets Limited.
+    </div>
+  </body>
+</html>

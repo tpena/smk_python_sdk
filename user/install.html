@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; smk_python_sdk v0.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="smk_python_sdk v0.2.1 documentation" href="../index.html" />
+    <link rel="next" title="Quickstart" href="quickstart.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation">
+<span id="install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>This covers the basic installation of the Smarkets API Client which is
+obviously necessary to get started.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>These packages are necessary at runtime.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://code.google.com/p/protobuf/downloads/list">Protocol buffers</a> 2.3.0 or 2.4.1</li>
+</ul>
+<p>These are required to build from source and run unit tests, etc.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://curl.haxx.se/">cURL</a></li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/mock">mock</a></li>
+<li><a class="reference external" href="http://piqi.org/downloads/">piqi</a></li>
+</ul>
+</div>
+<div class="section" id="pip">
+<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
+<p>Install the client with <a class="reference external" href="http://www.pip-installer.org">pip</a>:</p>
+<div class="highlight-python"><pre>$ pip install smk_python_sdk</pre>
+</div>
+</div>
+<div class="section" id="github">
+<h2>Github<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
+<p>Smarkets makes its open source development activities available on
+<a class="reference internal" href="#github">GitHub</a>, and the Python API Client is <a class="reference external" href="https://github.com/smarkets/smk_python_sdk">available there</a>.</p>
+<p>Clone the public master branch:</p>
+<div class="highlight-python"><pre>$ git clone https://github.com/smarkets/smk_python_sdk.git</pre>
+</div>
+<p>Or, download a <a class="reference external" href="https://github.com/smarkets/smk_python_sdk/tarball/master">.tar.gz</a>:</p>
+<div class="highlight-python"><pre>$ curl -O https://github.com/smarkets/smk_python_sdk/tarball/master</pre>
+</div>
+<p>Or, a <a class="reference external" href="https://github.com/smarkets/smk_python_sdk/zipball/master">.zip</a>:</p>
+<div class="highlight-python"><pre>$ curl -O https://github.com/smarkets/smk_python_sdk/zipball/master</pre>
+</div>
+</div>
+<div class="section" id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline">¶</a></h2>
+<p>Once you have downloaded a copy of the source, you can install it into
+site-packages:</p>
+<div class="highlight-python"><pre>$ python setup.py build install</pre>
+</div>
+<p>The build target will download the necessary files to generate the
+protobuf modules. Make sure you have satisfied the <a class="reference internal" href="#requirements">requirements</a>
+listed above.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#pip">Pip</a></li>
+<li><a class="reference internal" href="#github">Github</a></li>
+<li><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="next chapter">Quickstart</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="../index.html">smk_python_sdk v0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Smarkets Limited.
+    </div>
+  </body>
+</html>
