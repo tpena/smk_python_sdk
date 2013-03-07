@@ -61,3 +61,10 @@ class Order(object):
         payload.order_create.quantity = self.quantity
         payload.order_create.price_type = seto.PRICE_PERCENT_ODDS
         payload.order_create.price = self.price
+
+
+class FillOrKillOrder(Order):
+    def copy_to(self, payload, clear=True):
+        Order.copy_to(self, payload, clear)
+        payload.order_create.tif = seto.IMMEDIATE_OR_CANCEL
+        payload.order_create.maq = self.quantity

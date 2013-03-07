@@ -25,7 +25,7 @@ from smarkets.exceptions import (
     SocketDisconnected,
     InvalidCallbackError,
     )
-from smarkets.orders import Order
+from smarkets.orders import Order, FillOrKillOrder
 from smarkets.sessions import Session, SessionSettings
 
 
