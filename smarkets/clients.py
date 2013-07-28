@@ -5,7 +5,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 import logging
 
-from itertools import chain
+from copy import copy
 
 import smarkets.eto.piqi_pb2 as eto
 import smarkets.seto.piqi_pb2 as seto
@@ -15,19 +15,21 @@ from smarkets.urls import fetch
 
 
 _ETO_PAYLOAD_TYPES = dict((
-    (getattr(eto, x),
-     'eto.%s' % x.replace('PAYLOAD_', '').lower()) \
-        for x in dir(eto) if x.startswith('PAYLOAD_')))
+    (getattr(eto, x), 'eto.%s' % x.replace('PAYLOAD_', '').lower())
+    for x in dir(eto) if x.startswith('PAYLOAD_')
+))
 
 
 _SETO_PAYLOAD_TYPES = dict((
-    (getattr(seto, x),
-     'seto.%s' % x.replace('PAYLOAD_', '').lower()) \
-        for x in dir(seto) if x.startswith('PAYLOAD_')))
+    (getattr(seto, x), 'seto.%s' % x.replace('PAYLOAD_', '').lower())
+    for x in dir(seto) if x.startswith('PAYLOAD_')
+))
 
 
 class Callback(object):
+
     "Container for callbacks"
+
     def __init__(self):
         self._handlers = set()
 
@@ -48,7 +50,7 @@ class Callback(object):
 
     def fire(self, *args, **kwargs):
         "Raise the signal to the handlers"
-        for handler in self._handlers:
+        for handler in copy(self._handlers):
             handler(*args, **kwargs)
 
     def __len__(self):
@@ -60,21 +62,20 @@ class Callback(object):
 
 
 class Smarkets(object):
+
     """
     Smarkets API implementation
 
     Provides a simple interface wrapping the protobufs.
     """
-    CALLBACKS = dict(((name, Callback()) for name in chain(
-                _ETO_PAYLOAD_TYPES.itervalues(),
-                _SETO_PAYLOAD_TYPES.itervalues())))
+    CALLBACKS = _ETO_PAYLOAD_TYPES.values() + _SETO_PAYLOAD_TYPES.values()
 
     logger = logging.getLogger('smarkets.smarkets')
 
     def __init__(self, session, auto_flush=True):
         self.session = session
         self.auto_flush = auto_flush
-        self.callbacks = self.__class__.CALLBACKS.copy()
+        self.callbacks = dict((callback_name, Callback()) for callback_name in self.__class__.CALLBACKS)
         self.global_callback = Callback()
         self.fetch = fetch
 
@@ -105,19 +106,15 @@ class Smarkets(object):
         "Flush the send buffer"
         self.session.flush()
 
-    def order(self, order):
-        "Create a new order"
-        msg = self.session.out_payload
-        order.copy_to(msg, clear=True)
-        return self._send()
-
-    def order_cancel(self, order):
-        "Cancel an existing order"
-        msg = self.session.out_payload
-        msg.Clear()
-        msg.type = seto.PAYLOAD_ORDER_CANCEL
-        msg.order_cancel.order.CopyFrom(order)
-        return self._send()
+    def send(self, message):
+        payload = self.session.out_payload
+        payload.Clear()
+        message.copy_to(payload)
+        seq = self._send()
+        message.seq = seq
+        if hasattr(message, 'register_callbacks'):
+            message.register_callbacks(self)
+        return seq
 
     def ping(self):
         "Ping the service"
@@ -242,12 +239,12 @@ class Smarkets(object):
         if name == 'seto.eto':
             name = _ETO_PAYLOAD_TYPES.get(message.eto_payload.type)
         if name in self.callbacks:
-            self.logger.info("dispatching callback %s", name)
+            self.logger.debug("dispatching callback %s", name)
             callback = self.callbacks.get(name)
             if callback is not None:
                 callback(message)
             else:
                 self.logger.error("no callback %s", name)
+            self.logger.debug("ignoring unknown message: %s", name)
         else:
-            self.logger.info("ignoring unknown message: %s", name)
-        self.global_callback(name, message)
+            self.global_callback(name, message)

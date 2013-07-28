@@ -1,0 +1,6 @@
+mock
+nose
+sphinx
+protobuf
+pep8
+pylint

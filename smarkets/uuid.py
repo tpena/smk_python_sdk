@@ -18,6 +18,7 @@ UuidBase = namedtuple('UuidBase', ['number', 'tag'])
 
 
 class UuidTag(UuidTagBase):  # pylint: disable=E1001
+
     "Represents tag information"
     __slots__ = ()
     tag_mult = 1 << 16
@@ -38,22 +39,23 @@ class UuidTag(UuidTagBase):  # pylint: disable=E1001
 
 
 class Uuid(UuidBase):  # pylint: disable=E1001
+
     "Represents a UUID"
     __slots__ = ()
     chars = '0123456789' \
         'abcdefghijklmnopqrstuvwxyz' \
         'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     tag_list = (
-        UuidTag('Account',       int('acc1', 16), 'a'),
+        UuidTag('Account', int('acc1', 16), 'a'),
         UuidTag('ContractGroup', int('c024', 16), 'm'),
-        UuidTag('Contract',      int('cccc', 16), 'c'),
-        UuidTag('Order',         int('fff0', 16), 'o'),
-        UuidTag('Comment',       int('b1a4', 16), 'b'),
-        UuidTag('Entity',        int('0444', 16), 'n'),
-        UuidTag('Event',         int('1100', 16), 'e'),
-        UuidTag('Session',       int('9999', 16), 's'),
-        UuidTag('User',          int('0f00', 16), 'u'),
-        UuidTag('Referrer',      int('4e4e', 16), 'r'),
+        UuidTag('Contract', int('cccc', 16), 'c'),
+        UuidTag('Order', int('fff0', 16), 'o'),
+        UuidTag('Comment', int('b1a4', 16), 'b'),
+        UuidTag('Entity', int('0444', 16), 'n'),
+        UuidTag('Event', int('1100', 16), 'e'),
+        UuidTag('Session', int('9999', 16), 's'),
+        UuidTag('User', int('0f00', 16), 'u'),
+        UuidTag('Referrer', int('4e4e', 16), 'r'),
     )
 
     # Various indexes into uuid map
@@ -101,8 +103,8 @@ class Uuid(UuidBase):  # pylint: disable=E1001
     def base_n(number, chars):
         "Recursive helper for calculating a number in base len(chars)"
         return ((number == 0) and "0") \
-            or (Uuid.base_n(number // (len(chars)), chars).lstrip("0") \
-                    + chars[number % (len(chars))])
+            or (Uuid.base_n(number // (len(chars)), chars).lstrip("0") +
+                chars[number % (len(chars))])
 
     @staticmethod
     def pad_uuid(uuid, pad=32, padchar='0'):

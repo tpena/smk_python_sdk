@@ -18,7 +18,9 @@ from smarkets.exceptions import ConnectionError, SocketDisconnected
 
 
 class SessionSettings(object):
+
     "Encapsulate settings necessary to create a new session"
+
     def __init__(self, username, password):
         if username is None:
             raise ValueError("username cannot be None")
@@ -52,7 +54,9 @@ class SessionSettings(object):
         if not isinstance(self.ssl_kwargs, (dict)):
             raise ValueError("ssl_kwargs must be a dict")
 
+
 class Session(object):
+
     "Manages TCP communication via Smarkets streaming API"
     logger = logging.getLogger('smarkets.session')
 
@@ -199,6 +203,7 @@ class Session(object):
 
 
 class SessionSocket(object):
+
     "Wraps a socket with basic framing/deframing"
     logger = logging.getLogger('smarkets.session.socket')
     wire_logger = logging.getLogger('smarkets.session.wire')
@@ -277,7 +282,7 @@ class SessionSocket(object):
             else:
                 _errno, errmsg = exc.args
             raise ConnectionError("Error %s while writing to socket. %s." % (
-                    _errno, errmsg))
+                _errno, errmsg))
 
     def recv(self):
         "Read a frame with header"
@@ -342,7 +347,7 @@ class SessionSocket(object):
         msglen = 0
         msglist = []
         while msglen < bytes_needed:
-            chunk=self._sock.recv(
+            chunk = self._sock.recv(
                 min(self.settings.read_chunksize, bytes_needed - msglen))
             if not chunk:
                 self.logger.info("socket disconnected while receiving")

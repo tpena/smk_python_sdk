@@ -4,6 +4,7 @@ import unittest
 from contextlib import contextmanager
 from itertools import chain, product
 from mock import Mock, patch, sentinel
+from nose.tools import eq_
 
 import smarkets.eto.piqi_pb2 as eto
 import smarkets.seto.piqi_pb2 as seto
@@ -11,11 +12,13 @@ import smarkets.uuid as uuid
 
 from smarkets.clients import Callback, Smarkets
 from smarkets.exceptions import InvalidCallbackError
-from smarkets.orders import Order
+from smarkets.orders import OrderCreate, OrderCancel, BUY
 
 
 class CallbackTestCase(unittest.TestCase):
+
     "Test the `smarkets.Callback` class"
+
     def setUp(self):
         "Set up the tests"
         self.callback = Callback()
@@ -114,8 +117,17 @@ class CallbackTestCase(unittest.TestCase):
         raise Exception()
 
 
+class Handler(object):
+    call_count = 0
+
+    def __call__(self, *args, **kwargs):
+        self.call_count += 1
+
+
 class SmarketsTestCase(unittest.TestCase):
+
     "Tests for the `smarkets.Smarkets` client object"
+
     def setUp(self):
         "Patch the `Session` object for mock use"
         self.session_patcher = patch('smarkets.sessions.Session')
@@ -177,6 +189,18 @@ class SmarketsTestCase(unittest.TestCase):
             [('logout', (), {}),
              ('disconnect', (), {})])
 
+    def test_each_instance_has_separate_callbacks(self):
+        client_a, client_b = (Smarkets('_') for i in range(2))
+        handler = Handler()
+        client_a.add_handler('seto.http_found', handler)
+        eq_(handler.call_count, 0)
+
+        client_a.callbacks['seto.http_found']('irrelevant')
+        eq_(handler.call_count, 1)
+
+        client_b.callbacks['seto.http_found']('also irrelevant')
+        eq_(handler.call_count, 1)
+
     def test_flush(self):
         "Test the `Smarkets.flush` method"
         self.client.flush()
@@ -189,20 +213,20 @@ class SmarketsTestCase(unittest.TestCase):
         market_id = self.client.str_to_uuid128('1c024')
         contract_id = self.client.str_to_uuid128('1cccc')
         with self._clear_send():
-            order = Order()
+            order = OrderCreate()
             order.price = 2500
             order.quantity = 10000
-            order.side = Order.BUY
+            order.side = BUY
             order.market = market_id
             order.contract = contract_id
             order.validate_new()
-            self.client.order(order)
+            self.client.send(order)
 
     def test_order_cancel(self):
         "Test the `Smarkets.order_cancel` method"
         order_id = self.client.str_to_uuid128('1fff0')
         with self._clear_send():
-            self.client.order_cancel(order_id)
+            self.client.send(OrderCancel(order_id))
 
     def test_ping(self):
         "Test the `Smarkets.ping` method"
@@ -247,7 +271,7 @@ class SmarketsTestCase(unittest.TestCase):
     def test_add_bad_handler(self):
         "Test trying to add a bad handler either as a global or normal"
         for bad_handler in (
-            50, 'foo', False, True, u'foo', 1.2, 1L):
+                50, 'foo', False, True, u'foo', 1.2, 1L):
             self.assertRaises(
                 ValueError, self.client.add_handler, 'eto.pong', bad_handler)
             self.assertRaises(
@@ -284,7 +308,9 @@ class SmarketsTestCase(unittest.TestCase):
 
 
 class UuidTestCase(unittest.TestCase):
+
     "Unit tests for Uuids"
+
     def test_int_roundtrip(self):
         "Test converting an integer to a Uuid and back"
         ttype = 'Account'

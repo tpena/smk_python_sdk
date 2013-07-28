@@ -4,6 +4,15 @@
 # This module is released under the MIT License:
 # http://www.opensource.org/licenses/mit-license.php
 import inspect
+import os
+
+if 'READTHEDOCS' in os.environ:
+    from mock import Mock
+    import sys
+
+    eto = seto = \
+        sys.modules['smarkets.eto'] = sys.modules['smarkets.eto.piqi_pb2'] = \
+        sys.modules['smarkets.seto'] = sys.modules['smarkets.seto.piqi_pb2'] = Mock()
 
 from smarkets.clients import Smarkets
 from smarkets.events import (
@@ -15,8 +24,16 @@ from smarkets.events import (
     FootballByDate,
     HorseRacingByDate,
     TennisByDate,
+    BasketballByDate,
+    AmericanFootballByDate,
+    BaseballByDate,
+    CricketByDate,
+    HandballByDate,
+    RugbyByDate,
+    RugbyLeagueByDate,
+    VolleyballByDate,
     SportOther,
-    )
+)
 from smarkets.exceptions import (
     Error,
     ConnectionError,
@@ -26,10 +43,12 @@ from smarkets.exceptions import (
     InvalidCallbackError,
     )
 from smarkets.orders import Order, FillOrKillOrder
+from smarkets.orders import OrderCreate
+
 from smarkets.sessions import Session, SessionSettings
 
 
-__version__ = '0.3.3'
+__version__ = '0.4.8'
 
 __all__ = sorted(name for name, obj in locals().items()
                  if not (name.startswith('_') or inspect.ismodule(obj)))
