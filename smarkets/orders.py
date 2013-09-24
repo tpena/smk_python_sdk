@@ -77,16 +77,14 @@ class OrderCreate(object):
         payload.order_create.quantity = self.quantity
         payload.order_create.price_type = seto.PRICE_PERCENT_ODDS
         payload.order_create.price = self.price
-<<<<<<< HEAD
 
 
-class FillOrKillOrder(Order):
+class FillOrKillOrder(OrderCreate):
     def copy_to(self, payload, clear=True):
-        Order.copy_to(self, payload, clear)
+        OrderCreate.copy_to(self, payload, clear)
         payload.order_create.tif = seto.IMMEDIATE_OR_CANCEL
         payload.order_create.maq = self.quantity
-||||||| merged common ancestors
-=======
+
 
     def register_callbacks(self, client):
         self.client = client
@@ -192,3 +190,4 @@ class OrdersForMarket(object):
         "Copy this instruction to a message `payload`"
         payload.type = seto.PAYLOAD_ORDERS_FOR_MARKET_REQUEST
         payload.orders_for_market_request.market.CopyFrom(self.market_uid)
+        payload.order_create.maq = self.quantity / 2
