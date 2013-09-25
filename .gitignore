@@ -1,10 +1,6 @@
 *.pyc
 *.piqi
 *.proto
-smarkets/seto/__init__.*
-smarkets/seto/piqi_pb2.*
-smarkets/eto/__init__.*
-smarkets/eto/piqi_pb2.*
 build/
 dist/
 *.egg-info/
