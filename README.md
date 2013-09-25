@@ -15,14 +15,7 @@ Python API client for Smarkets.
 
 ### For building the code, running tests and generating documentation
 
-* curl
-* mock
-* nose
-* pandoc
-* Piqi
-* sphinx
-* pep8
-* pylint
+    $ pip install -r requirements-dev.txt
 
 ## Installation
 
@@ -30,13 +23,9 @@ To install:
 
     $ pip install smk_python_sdk
 
-or if that doesn't work:
-
-    $ easy_install smk_python_sdk
-
 or if you want to build it yourself:
 
-    $ sudo python setup.py build install
+    $ python setup.py build install
 
 ## Getting Started
 
@@ -69,27 +58,6 @@ client.order(order)
 client.flush()
 client.read()
 client.logout()
-```
-
-### Resuming a session
-
-When resuming a session you need to know the incoming and outgoing
-sequence numbers you were using when the session was last used, from
-the example above they will now both be 5.
-
-```python
-username = 'username'
-password = 'password'
-settings = smarkets.SessionSettings(username, password)
-settings.host = 'api.smarkets.com'
-settings.port = 3701
-session_id = 'session-id'
-inseq = 5
-outseq = 5
-session = smarkets.Session(settings, session_id, inseq, outseq)
-client = smarkets.Smarkets(session)
-client.login()
-client.read()
 ```
 
 ### Registering callbacks

@@ -4,10 +4,20 @@
 # This module is released under the MIT License:
 # http://www.opensource.org/licenses/mit-license.php
 
+from types import NoneType
+
 import smarkets.seto.piqi_pb2 as seto
 
 BUY = 1
 SELL = 2
+
+MAX_QUANTITY = 2 ** 31 - 1
+
+
+def references_match(o1, o2):
+    o1ref = o1.reference
+    o2ref = o2.reference
+    return o1ref is not None and o2ref is not None and o1ref == o2ref
 
 
 class OrderCreate(object):
@@ -15,21 +25,11 @@ class OrderCreate(object):
     "Simple order state with useful exceptions"
     __slots__ = ('quantity', 'price', 'side', 'market', 'contract',
                  'accept_callback', 'reject_callback', 'invalid_callback', 'executed_callback',
-                 'seq', 'client', 'time_in_force')
+                 'seq', 'client', 'time_in_force', 'reference')
 
     def __init__(self):
-        self.quantity = None
-        self.price = None
-        self.side = None
-        self.market = None
-        self.contract = None
-        self.accept_callback = None
-        self.reject_callback = None
-        self.invalid_callback = None
-        self.executed_callback = None
-        self.seq = None
-        self.client = None
-        self.time_in_force = None
+        for k in self.__slots__:
+            setattr(self, k, None)
 
     def validate_new(self):
         "Validate this order's properties as a new instruction"
@@ -44,8 +44,8 @@ class OrderCreate(object):
             raise ValueError("quantity must be an integer")
         if self.quantity < 1000:
             raise ValueError("quantity must be at least 1,000")
-        if self.quantity > 9223372036854775807L:
-            raise ValueError("quantity cannot exceed 63 bits")
+        if self.quantity > MAX_QUANTITY:
+            raise ValueError("quantity cannot exceed %r" % MAX_QUANTITY)
 
         if self.side not in (BUY, SELL):
             raise ValueError("side must be one of BUY or SELL")
@@ -54,11 +54,14 @@ class OrderCreate(object):
             raise ValueError("market must be a valid seto.Uuid128")
         if not isinstance(self.contract, seto.Uuid128):
             raise ValueError("contract must be a valid seto.Uuid128")
+        if not isinstance(self.reference, (NoneType, int, long)):
+            raise ValueError("reference must be either None or an integer")
 
         if self.time_in_force:
-            if not self.time_in_force == seto.IMMEDIATE_OR_CANCEL and \
-               not self.time_in_force == seto.GOOD_TIL_CANCELLED:
-                raise ValueError("Time inforce must be one of IMMEDIATE_OR_CANCEL, GOOD_TIL_CANCELLED")
+            allowed = seto._TIMEINFORCETYPE.values
+            if self.time_in_force not in [enum.number for enum in allowed]:
+                raise ValueError("Time inforce must be one of: %s" % (
+                    [enum.name for enum in allowed],))
 
     def copy_to(self, payload):
         "Copy this order instruction to a message `payload`"
@@ -78,53 +81,6 @@ class OrderCreate(object):
         payload.order_create.price_type = seto.PRICE_PERCENT_ODDS
         payload.order_create.price = self.price
 
-
-class FillOrKillOrder(OrderCreate):
-    def copy_to(self, payload, clear=True):
-        OrderCreate.copy_to(self, payload, clear)
-        payload.order_create.tif = seto.IMMEDIATE_OR_CANCEL
-        payload.order_create.maq = self.quantity
-
-
-    def register_callbacks(self, client):
-        self.client = client
-        if self.accept_callback is not None:
-            client.add_handler('seto.order_accepted', self._accept_callback)
-        if self.reject_callback is not None:
-            client.add_handler('seto.order_rejected', self._reject_callback)
-        if self.invalid_callback is not None:
-            client.add_handler('seto.order_invalid', self._invalid_callback)
-        if self.executed_callback is not None:
-            client.add_handler('seto.order_executed', self._executed_callback)
-
-    def clear_callbacks(self):
-        if self.accept_callback is not None:
-            self.client.del_handler('seto.order_accepted', self._accept_callback)
-        if self.reject_callback is not None:
-            self.client.del_handler('seto.order_rejected', self._reject_callback)
-        if self.invalid_callback is not None:
-            self.client.del_handler('seto.order_invalid', self._invalid_callback)
-        if self.executed_callback is not None:
-            self.client.del_handler('seto.order_executed', self._executed_callback)
-
-    def _accept_callback(self, message):
-        if message.order_accepted.seq == self.seq:
-            self.accept_callback(message)
-
-    def _reject_callback(self, message):
-        if message.order_rejected.seq == self.seq:
-            self.reject_callback(message)
-            self.clear_callbacks()
-
-    def _invalid_callback(self, message):
-        if message.order_invalid.seq == self.seq:
-            self.invalid_callback(message)
-            self.clear_callbacks()
-
-    def _executed_callback(self, message):
-        self.executed_callback(message)
-        self.clear_callbacks()
-
     def __repr__(self):
         return "OrderCreate(price=%r, quantity=%r, side=%r, market=%r, contract=%r)" % (
             self.price, self.quantity, self.side, self.market, self.contract)
@@ -133,13 +89,13 @@ class FillOrKillOrder(OrderCreate):
 class OrderCancel(object):
 
     """ Message to cancel the specified order"""
-    __slots__ = ('uid', 'seq', 'client', 'cancelled_callback', 'reject_callback')
+    __slots__ = ('uid', 'seq', 'client', 'cancelled_callback', 'reject_callback', 'reference')
 
     def __init__(self, uid=None):
+        for k in self.__slots__:
+            setattr(self, k, None)
+
         self.uid = uid
-        self.client = None
-        self.cancelled_callback = None
-        self.reject_callback = None
 
     def validate_new(self):
         "Validate this order's properties as a new instruction"
@@ -150,28 +106,6 @@ class OrderCancel(object):
         "Copy this instruction to a message `payload`"
         payload.type = seto.PAYLOAD_ORDER_CANCEL
         payload.order_cancel.order.CopyFrom(self.uid)
-
-    def register_callbacks(self, client):
-        self.client = client
-        if self.cancelled_callback is not None:
-            client.add_handler('seto.order_cancelled', self._cancelled_callback)
-        if self.reject_callback is not None:
-            client.add_handler('seto.order_cancel_rejected', self._reject_callback)
-
-    def clear_callbacks(self):
-        if self.cancelled_callback is not None:
-            self.client.del_handler('seto.order_cancelled', self._cancelled_callback)
-        if self.reject_callback is not None:
-            self.client.del_handler('seto.order_cancel_rejected', self._reject_callback)
-
-    def _cancelled_callback(self, message):
-        self.clear_callbacks()
-        self.cancelled_callback(message)
-
-    def _reject_callback(self, message):
-        if message.order_cancel_rejected.seq == self.seq:
-            self.reject_callback(message)
-            self.clear_callbacks()
 
 
 class OrdersForMarket(object):
@@ -191,3 +125,10 @@ class OrdersForMarket(object):
         payload.type = seto.PAYLOAD_ORDERS_FOR_MARKET_REQUEST
         payload.orders_for_market_request.market.CopyFrom(self.market_uid)
         payload.order_create.maq = self.quantity / 2
+
+
+class FillOrKillOrder(OrderCreate):
+    def copy_to(self, payload, clear=True):
+        OrderCreate.copy_to(self, payload, clear)
+        payload.order_create.tif = seto.IMMEDIATE_OR_CANCEL
+        payload.order_create.maq = self.quantity

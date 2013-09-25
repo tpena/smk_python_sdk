@@ -30,7 +30,7 @@ def check_call(*args, **kwargs):
 
 
 ETO_PIQI_URL = 'https://raw.github.com/smarkets/eto_common/v0.3.0/eto.piqi'
-SETO_PIQI_URL = 'https://raw.github.com/smarkets/smk_api_common/v0.7.0/seto.piqi'
+SETO_PIQI_URL = 'https://raw.github.com/smarkets/smk_api_common/v0.7.4/seto.piqi'
 
 def _safe_glob(pathname):
     "Do a safe version of glob which copes with win32"
@@ -179,7 +179,6 @@ sdict = {
     'keywords': ['Smarkets', 'betting exchange'],
     'license': 'MIT',
     'packages': ['smarkets'] + extra_packages,
-    'test_suite': 'tests.all_tests',
     'classifiers': [
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
@@ -189,11 +188,14 @@ sdict = {
         'Programming Language :: Python'],
     'install_requires': [
         'protobuf',
+        'six',
     ],
+    'zip_safe': False,
     'cmdclass': {
         'build': SmarketsProtocolBuild,
         'clean': SmarketsProtocolClean,
     },
 }
 
-setup(**sdict)
+if __name__ == '__main__':
+    setup(**sdict)
