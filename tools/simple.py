@@ -6,6 +6,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 import smarkets
 import smarkets.uuid
+
 from google.protobuf import text_format
 
 def create_client():
@@ -13,7 +14,7 @@ def create_client():
     password = 'Gq7dbfq6DetHwn8y'
     settings = smarkets.SessionSettings(username, password)
     settings.host = 'api.smarkets.com'
-    settings.port = 3701
+    settings.port = 3801
     settings.ssl = True
     session = smarkets.Session(settings)
     client = smarkets.Smarkets(session)
@@ -50,19 +51,19 @@ def simpleLoginLogout():
     logging.info("########################### TEST2 ###############################")
 
 
-def place_order():
+def place_order(market_id, contract_id):
     logging.info("########################### ORDER ###############################")
 
     client = create_client()
 
-    market = client.str_to_uuid128('000000000000000000000020d3ccc024')
+    market = client.str_to_uuid128(market_id)
 
     order = smarkets.orders.Order()
     order.quantity = 2000
     order.price = 5000
-    order.side = smarkets.Order.BUY
+    order.side = smarkets.orders.BUY
     order.market = market
-    order.contract = client.str_to_uuid128('00000000000000000000005c677ecccc')
+    order.contract = client.str_to_uuid128(contract_id)
 
     client.order(order)
     client.flush()
@@ -117,6 +118,6 @@ def orders_for_account_handler(payload):
 
 if __name__ == '__main__':
     print smarkets.uuid.int_to_uuid(5815765, 'Contract')
-    #place_order()
-    orders_for_account()
+    place_order('00000000000000000000002cb3c6c024', '000000000000000000000075f3e8cccc')
+    #simpleLoginLogout()
 
