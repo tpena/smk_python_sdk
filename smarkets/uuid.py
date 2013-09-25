@@ -9,6 +9,7 @@ There are 3 main representations of IDs used in Smarkets:
 
 """
 import types
+import smarkets.seto.piqi_pb2 as seto
 
 from collections import namedtuple
 
@@ -225,3 +226,12 @@ def uuid_to_int(uuid, return_tag=None, split=False):
 def uuid_to_short(uuid):
     "Converts a full UUID to the shortened version"
     return uuid[:-4].lstrip('0')
+
+def int_to_uuid128(number):
+    "Convert a number (low 8 bytes) to a uuid128"
+    uuid128 = seto.Uuid128()
+    uuid128.low = number
+    uuid128.high = 0
+
+    return uuid128
+

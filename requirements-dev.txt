@@ -5,3 +5,5 @@ sphinx
 protobuf
 pep8
 pylint
+six
+

@@ -25,6 +25,7 @@ from smarkets.exceptions import (  # noqa
     )
 from smarkets.orders import OrderCreate  # noqa
 from smarkets.sessions import Session, SessionSettings  # noqa
+from smarkets.uuid import int_to_uuid128
 
 
 __version__ = '0.5.0c2'
