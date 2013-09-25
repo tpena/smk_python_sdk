@@ -28,7 +28,7 @@ from smarkets.sessions import Session, SessionSettings  # noqa
 from smarkets.uuid import int_to_uuid128
 
 
-__version__ = '0.5.0c2'
+__version__ = '0.5.0btc_rc1'
 
 __all__ = sorted(name for name, obj in locals().items()
                  if not (name.startswith('_') or inspect.ismodule(obj)))
