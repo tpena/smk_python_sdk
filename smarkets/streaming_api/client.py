@@ -111,6 +111,13 @@ class StreamingAPIClient(object):
         msg.orders_for_market_request.market.CopyFrom(market)
         return self._send()
 
+    def market_quotes(self, market):
+        msg = self.session.out_payload
+        msg.Clear()
+        msg.type = seto.PAYLOAD_MARKET_QUOTES_REQUEST
+        msg.market_quotes_request.market.CopyFrom(market)
+        return self._send()
+
     def unsubscribe(self, market):
         "Unsubscribe from a market"
         msg = self.session.out_payload

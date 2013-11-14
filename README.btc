@@ -1,0 +1,22 @@
+Install:
+-------------
+
+```
+virtualenv --no-site-packages venv
+source venv/bin/activate
+pip install -r requirements-dev-py2.txt
+export PYTHONPATH=`pwd`
+```
+
+Compile ETO/SETO Piqi files
+---------------------------
+One time operation, usually when you first clone the project.
+
+python setup.py build
+
+This will download the newest PIQI files from Smarkets and
+compile them using first the PIQI-to-PROTO compiler and then
+the PROTOBUF compiler. It will generate a build/ directory
+which you can ignore, but also place the generated files in
+smarkets/eto and smarkets/seto resp.
+

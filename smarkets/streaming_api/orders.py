@@ -24,7 +24,7 @@ class OrderCreate(object):
 
     "Simple order state with useful exceptions"
     __slots__ = ('quantity', 'price', 'side', 'market', 'contract',
-                 'seq', 'client', 'time_in_force', 'reference')
+                 'seq', 'client', 'time_in_force', 'reference', 'min_accepted_quantity')
 
     def __init__(self):
         for k in self.__slots__:
@@ -45,6 +45,8 @@ class OrderCreate(object):
             raise ValueError("quantity must be at least 1,000")
         if self.quantity > MAX_QUANTITY:
             raise ValueError("quantity cannot exceed %r" % MAX_QUANTITY)
+        if self.min_accepted_quantity > MAX_QUANTITY:
+            raise ValueError("min_accepted_quantity cannot exceed %r" % MAX_QUANTITY)
 
         if self.side not in (BUY, SELL):
             raise ValueError("side must be one of BUY or SELL")
@@ -71,6 +73,8 @@ class OrderCreate(object):
         payload.order_create.contract.CopyFrom(self.contract)
         if self.time_in_force:
             payload.order_create.tif = self.time_in_force
+        if self.min_accepted_quantity:
+            payload.order_create.maq = self.min_accepted_quantity
         if self.side == BUY:
             payload.order_create.side = _seto.SIDE_BUY
         elif self.side == SELL:

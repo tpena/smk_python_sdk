@@ -40,9 +40,8 @@ def check_call(*args, **kwargs):
     subprocess.check_call(*args, **kwargs)
 
 
-ETO_PIQI_URL = 'https://raw.github.com/smarkets/eto_common/v0.3.0/eto.piqi'
-SETO_PIQI_URL = 'https://raw.github.com/smarkets/smk_api_common/v0.7.6/seto.piqi'
-
+ETO_PIQI_URL = 'https://raw.github.com/smarkets/eto_common/master/eto.piqi'
+SETO_PIQI_URL = 'https://raw.github.com/smarkets/smk_api_common/master/seto.piqi'
 
 def _safe_glob(pathname):
     "Do a safe version of glob which copes with win32"

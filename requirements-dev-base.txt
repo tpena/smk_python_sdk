@@ -4,3 +4,6 @@ nose-ignore-docstring
 sphinx
 pep8
 pylint
+six
+decorator
+

@@ -7,5 +7,4 @@ smarkets/streaming_api/seto.py
 dist/
 *.egg-info/
 README
-
-env/
+venv
