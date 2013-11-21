@@ -12,12 +12,17 @@ distclean: clean
 	-rm -rf dist
 	-rm -rf build
 	-rm -rf smk.egg-info
-	-rm -rf smarkets/eto
-	-rm -rf smarkets/seto
-	-find . -name "*.pyc" | xargs rm
+	-rm -rf smarkets/streaming_api/eto.py
+	-rm -rf smarkets/streaming_api/seto.py
+	find . -name "*.pyc" -exec rm {} \;
 
-release: deps
-	python setup.py sdist --format=gztar,zip
+dist: distclean deps
+	python setup.py sdist
+	python setup.py bdist_wheel
+
+release: dist
+	python setup.py sdist upload
+	python setup.py bdist_wheel upload
 
 test: deps
 	mkdir -p build/test
@@ -42,3 +47,11 @@ delvsn:
 
 autopep8:
 	find . -name \*.py |egrep -v "env|travis" | xargs autopep8 --max-line-length=115 --recursive --in-place -j 8
+
+sync:
+	git remote | while read remote; do \
+		git pull $$remote master; \
+		git push -u $$remote master; \
+		git fetch $$remote --tags; \
+		git push $$remote --tags; \
+	done;
